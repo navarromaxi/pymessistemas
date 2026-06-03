@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PyMes Sistemas | Software a medida con mantenimiento incluido</title>
+<meta name="description" content="Desarrollamos sistemas de gestión personalizados para tu negocio. Gimnasios, clínicas, consultorios y más. Con mantenimiento mensual incluido.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #18181f;
+    --accent: #00e5a0;
+    --accent2: #00b8ff;
+    --text: #f0f0f5;
+    --muted: #8888a0;
+    --border: rgba(255,255,255,0.07);
+    --card-bg: rgba(255,255,255,0.04);
+    --radius: 16px;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 2rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--accent);
+    color: #0a0a0f;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 8rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,160,0.12) 0%, transparent 70%);
+    top: -200px; right: -200px;
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,184,255,0.08) 0%, transparent 70%);
+    bottom: -100px; left: -100px;
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.25);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .hero-tag::before { content: '●'; font-size: 0.5rem; }
+  h1 {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    max-width: 780px;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.2); background: var(--card-bg); }
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .hero-stat-num {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .hero-stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* ── SECTION TITLES ── */
+  .section-tag {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 560px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── HOW IT WORKS ── */
+  #como-funciona { background: var(--bg2); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .step {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .step:hover { border-color: rgba(0,229,160,0.3); }
+  .step-num {
+    font-family: var(--font-head);
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(0,229,160,0.15);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .step h3 {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .step p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+  /* ── SISTEMAS ── */
+  #sistemas { background: var(--bg); }
+  .sistemas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .sistema-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .sistema-card:hover { transform: translateY(-4px); border-color: rgba(0,229,160,0.2); }
+  .sistema-card-header {
+    padding: 1.75rem 2rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .sistema-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .icon-gym { background: rgba(0,229,160,0.12); }
+  .icon-salud { background: rgba(0,184,255,0.12); }
+  .icon-odonto { background: rgba(180,100,255,0.12); }
+  .icon-custom { background: rgba(255,180,0,0.12); }
+  .sistema-card h3 {
+    font-family: var(--font-head);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .sistema-card .desc { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+  .sistema-card-features { padding: 1.5rem 2rem; }
+  .feature-list { list-style: none; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 0.4rem 0;
+  }
+  .feature-list li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .sistema-demo-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0 2rem 1.5rem;
+    transition: gap 0.2s;
+  }
+  .sistema-demo-link:hover { gap: 0.7rem; }
+
+  /* ── CASOS DE EXITO ── */
+  #casos { background: var(--bg2); }
+  .casos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .caso-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+  .caso-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .caso-logo {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--accent);
+  }
+  .caso-name { font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; }
+  .caso-type { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+  .caso-quote {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    font-style: italic;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(0,229,160,0.4);
+    margin-bottom: 1.25rem;
+  }
+  .caso-tag {
+    display: inline-block;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    color: var(--accent);
+    font-size: 0.78rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  /* ── PROCESO ── */
+  #proceso { background: var(--bg); }
+  .proceso-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 3.5rem;
+    background: var(--border);
+  }
+  .proceso-item {
+    background: var(--bg3);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .proceso-num {
+    font-family: var(--font-head);
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  .proceso-item h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .proceso-item p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+
+  /* ── CTA FINAL ── */
+  #contacto {
+    background: var(--bg2);
+    text-align: center;
+  }
+  .cta-box {
+    background: linear-gradient(135deg, rgba(0,229,160,0.06) 0%, rgba(0,184,255,0.06) 100%);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 24px;
+    padding: 5rem 3rem;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .cta-box h2 { margin-bottom: 1rem; }
+  .cta-box p { color: var(--muted); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-whatsapp {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: #25D366;
+    color: white;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-whatsapp:hover { opacity: 0.88; transform: translateY(-2px); }
+  .btn-email {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.9rem 1.75rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-email:hover { border-color: rgba(255,255,255,0.2); background: var(--card-bg); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer .logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text);
+  }
+  footer .logo span { color: var(--accent); }
+  footer p { color: var(--muted); font-size: 0.82rem; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.22s; }
+  .delay-3 { animation-delay: 0.34s; }
+  .delay-4 { animation-delay: 0.46s; }
+  .delay-5 { animation-delay: 0.58s; }
+
+  /* ── HAMBURGER ── */
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    margin: 5px 0; transition: all 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    section { padding: 5rem 1.25rem; }
+    .hero-stats { gap: 1.5rem; }
+    .cta-box { padding: 3rem 1.5rem; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">PyMes<span>Sistemas</span></a>
+  <ul class="nav-links">
+    <li><a href="#sistemas">Sistemas</a></li>
+    <li><a href="#casos">Casos reales</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+  </ul>
+  <a href="https://wa.me/59897323916?text=Hola,%20quiero%20saber%20más%20sobre%20sus%20sistemas" class="nav-cta" target="_blank">Hablar con nosotros</a>
+  <button class="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="container">
+    <div class="hero-tag fade-up">Software hecho para tu negocio</div>
+    <h1 class="fade-up delay-1">El sistema que tu negocio <em>necesita</em>, funcionando hoy.</h1>
+    <p class="hero-sub fade-up delay-2">
+      Desarrollamos sistemas de gestión a medida para PyMEs. Sin papeles, sin Excel, sin caos. Y con mantenimiento mensual incluido para que nunca te quedes solo.
+    </p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="https://wa.me/59897323916?text=Hola,%20quiero%20saber%20más%20sobre%20sus%20sistemas" class="btn-primary" target="_blank">
+        💬 Consultanos gratis
+      </a>
+      <a href="#sistemas" class="btn-secondary">Ver sistemas →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section id="como-funciona">
+  <div class="container">
+    <div class="section-tag">Así trabajamos</div>
+    <h2>Sencillo de principio a fin</h2>
+    <p class="section-sub">Sin tecnicismos ni sorpresas. Desde la primera charla hasta que el sistema esté funcionando en tu negocio.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Nos contás tu negocio</h3>
+        <p>Una llamada o reunión para entender cómo trabajás hoy, qué necesitás y qué problemas querés resolver.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Diseñamos tu sistema</h3>
+        <p>Construimos el sistema a medida de tu operación. Sin plantillas genéricas: cada función pensada para vos.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Lo implementamos juntos</h3>
+        <p>Te acompañamos en la puesta en marcha, capacitamos a tu equipo y ajustamos lo que haga falta.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Mantenimiento mensual</h3>
+        <p>Soporte continuo, mejoras, actualizaciones. Pagás una cuota mensual y el sistema siempre está al día.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SISTEMAS -->
+<section id="sistemas">
+  <div class="container">
+    <div class="section-tag">Nuestros sistemas</div>
+    <h2>Soluciones que ya están funcionando</h2>
+    <p class="section-sub">Sistemas probados en negocios reales, adaptables a tu operación desde el primer día.</p>
+    <div class="sistemas-grid">
+
+      <!-- GYM -->
+      <div class="sistema-card">
+        <div class="sistema-card-header">
+          <div class="sistema-icon icon-gym">🏋️</div>
+          <h3>Sistema para Gimnasios</h3>
+          <p class="desc">Gestión integral de socios, pagos, clases y más. Todo desde un solo lugar.</p>
+        </div>
+        <div class="sistema-card-features">
+          <ul class="feature-list">
+            <li>Gestión de socios y planes</li>
+            <li>Control de pagos y gastos</li>
+            <li>Clases y eventos con inscripción online</li>
+            <li>Seguimiento de socios inactivos</li>
+            <li>Rutinas descargables para socios</li>
+            <li>Control de ingresos al gimnasio</li>
+            <li>Facturación electrónica (opcional)</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/59897323916?text=Quiero%20una%20demo%20del%20sistema%20para%20gimnasios" class="sistema-demo-link" target="_blank">Solicitá una demo →</a>
+      </div>
+
+      <!-- FISIOTERAPIA / CLÍNICAS -->
+      <div class="sistema-card">
+        <div class="sistema-card-header">
+          <div class="sistema-icon icon-salud">🩺</div>
+          <h3>Sistema para Clínicas y Fisioterapia</h3>
+          <p class="desc">Historial clínico, agenda, pacientes y reportes en un sistema profesional.</p>
+        </div>
+        <div class="sistema-card-features">
+          <ul class="feature-list">
+            <li>Gestión completa de pacientes</li>
+            <li>Historial clínico por sesión</li>
+            <li>Agenda integrada con Google Calendar</li>
+            <li>Control de pagos y gastos</li>
+            <li>Rutinas con videos de YouTube</li>
+            <li>Múltiples sucursales con reportes</li>
+            <li>Lista de interesados / leads</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/59897323916?text=Quiero%20una%20demo%20del%20sistema%20para%20cl%C3%ADnicas" class="sistema-demo-link" target="_blank">Solicitá una demo →</a>
+      </div>
+
+      <!-- ODONTOLOGÍA -->
+      <div class="sistema-card">
+        <div class="sistema-card-header">
+          <div class="sistema-icon icon-odonto">🦷</div>
+          <h3>Sistema para Odontología</h3>
+          <p class="desc">Todo lo que necesita un consultorio dental, digitalizado y ordenado.</p>
+        </div>
+        <div class="sistema-card-features">
+          <ul class="feature-list">
+            <li>Historia clínica completa por paciente</li>
+            <li>Odontograma digital</li>
+            <li>Gestión de turnos y agenda</li>
+            <li>Seguimiento de tratamientos</li>
+            <li>Control de pagos y presupuestos</li>
+            <li>Reportes y estadísticas</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/59897323916?text=Quiero%20una%20demo%20del%20sistema%20para%20cl%C3%ADnicas" class="sistema-demo-link" target="_blank">Solicitá una demo →</a>
+      </div>
+
+      <!-- A MEDIDA -->
+      <div class="sistema-card">
+        <div class="sistema-card-header">
+          <div class="sistema-icon icon-custom">⚡</div>
+          <h3>¿Otro tipo de negocio?</h3>
+          <p class="desc">Restaurantes, estudios, comercios, servicios. Si tenés un proceso, lo digitalizamos.</p>
+        </div>
+        <div class="sistema-card-features">
+          <ul class="feature-list">
+            <li>Relevamiento personalizado de tus procesos</li>
+            <li>Desarrollo a medida desde cero</li>
+            <li>Integraciones con herramientas que ya usás</li>
+            <li>Capacitación a tu equipo incluida</li>
+            <li>Soporte y mantenimiento mensual</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/59897323916?text=Quiero%20coordinar%20una%20reuni%C3%B3n" class="sistema-demo-link" target="_blank">Coordiná una reunión →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CASOS DE ÉXITO -->
+<section id="casos">
+  <div class="container">
+    <div class="section-tag">Casos reales</div>
+    <h2>Algunos negocios que ya trabajan con nosotros</h2>
+    <p class="section-sub">No prometemos, mostramos. Estos son algunos de nuestros clientes.</p>
+    <div class="casos-grid">
+
+      <div class="caso-card">
+        <div class="caso-header">
+          <div class="caso-logo">DI</div>
+          <div>
+            <div class="caso-name">Dínamo Gym</div>
+            <div class="caso-type">Gimnasio · Montevideo</div>
+          </div>
+        </div>
+        <p class="caso-quote">
+          "Antes manejábamos todo con planillas y anotaciones. Hoy controlamos socios, pagos, clases y eventos desde el sistema. El registro de ingresos al gym nos cambió la operación."
+        </p>
+        <span class="caso-tag">Sistema para gimnasios</span>
+      </div>
+
+      <div class="caso-card">
+        <div class="caso-header">
+          <div class="caso-logo">GR</div>
+          <div>
+            <div class="caso-name">Clínica Grip</div>
+            <div class="caso-type">Fisioterapia · Montevideo</div>
+          </div>
+        </div>
+        <p class="caso-quote">
+          "Llevamos el historial de cada paciente, coordinamos la agenda con Google Calendar y generamos reportes por sucursal. Todo en un solo lugar."
+        </p>
+        <span class="caso-tag">Sistema para clínicas</span>
+      </div>
+
+      <div class="caso-card">
+        <div class="caso-header">
+          <div class="caso-logo">FC</div>
+          <div>
+            <div class="caso-name">Fisioterapia Canelones</div>
+            <div class="caso-type">Fisioterapia · Canelones</div>
+          </div>
+        </div>
+        <p class="caso-quote">
+          "Ahora podemos asignar rutinas con videos a cada paciente, ver el historial completo y controlar los pagos sin perder nada. El sistema se adaptó perfecto a nuestra forma de trabajar."
+        </p>
+        <span class="caso-tag">Sistema para clínicas</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="container">
+    <div class="section-tag">¿Por qué elegirnos?</div>
+    <h2>Software que se queda con vos</h2>
+    <p class="section-sub">No somos una agencia que desaparece al entregar el proyecto. Somos un socio tecnológico a largo plazo.</p>
+    <div class="proceso-grid">
+      <div class="proceso-item">
+        <div class="proceso-num">100%</div>
+        <h3>A medida</h3>
+        <p>Cada sistema se construye según tu negocio, no al revés.</p>
+      </div>
+      <div class="proceso-item">
+        <div class="proceso-num">SIN</div>
+        <h3>Costos ocultos</h3>
+        <p>Un solo precio mensual. Sin sorpresas ni extras inesperados.</p>
+      </div>
+      <div class="proceso-item">
+        <div class="proceso-num">SIEMPRE</div>
+        <h3>Disponibles</h3>
+        <p>Soporte real. Un problema tuyo es un problema nuestro.</p>
+      </div>
+      <div class="proceso-item">
+        <div class="proceso-num">TU</div>
+        <h3>Ritmo de crecimiento</h3>
+        <p>El sistema crece con tu negocio. Siempre podemos sumar funciones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO / CTA -->
+<section id="contacto">
+  <div class="container">
+    <div class="cta-box">
+      <div class="section-tag">Empezá hoy</div>
+      <h2>¿Tu negocio todavía funciona con Excel?</h2>
+      <p>Contanos cómo trabajás hoy y te mostramos cómo podemos digitalizarlo.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/59897323916?text=Hola,%20quiero%20saber%20más%20sobre%20sus%20sistemas" class="btn-whatsapp" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Hablemos por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">PyMes<span>Sistemas</span></div>
+  <p>pymessistemas.com · Desarrollo de software para PyMEs</p>
+  <p style="color: var(--muted); font-size: 0.82rem;">© 2025 PyMes Sistemas · Uruguay</p>
+</footer>
+
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '70px';
+    navLinks.style.left = '0'; navLinks.style.right = '0';
+    navLinks.style.background = 'rgba(10,10,15,0.97)';
+    navLinks.style.padding = '1.5rem 2rem';
+    navLinks.style.borderBottom = '1px solid rgba(255,255,255,0.07)';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.step, .sistema-card, .caso-card, .proceso-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

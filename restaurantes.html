@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software para Restaurantes en Uruguay | PyMes Sistemas</title>
+<meta name="description" content="Sistema de gestión a medida para restaurantes y gastronomía en Uruguay. Mesas, pedidos, stock, caja y más.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0f; --bg2: #111118; --bg3: #18181f;
+    --accent: #00e5a0; --accent2: #00b8ff;
+    --text: #f0f0f5; --muted: #8888a0;
+    --border: rgba(255,255,255,0.07);
+    --card-bg: rgba(255,255,255,0.04);
+    --radius: 16px;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { display: flex; align-items: center; gap: 0.3rem; cursor: pointer; }
+  .nav-dropdown > a::after { content: '▾'; font-size: 0.7rem; }
+  .dropdown-menu { display: none; position: absolute; top: calc(100% + 1rem); left: 0; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; min-width: 240px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .nav-dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu a { display: block; padding: 0.75rem 1.25rem; color: var(--muted); font-size: 0.875rem; text-decoration: none; transition: background 0.15s, color 0.15s; border-bottom: 1px solid var(--border); }
+  .dropdown-menu a:last-child { border-bottom: none; }
+  .dropdown-menu a:hover { background: var(--card-bg); color: var(--text); }
+  .dropdown-menu .dropdown-tag { font-size: 0.7rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-left: 0.5rem; }
+  .nav-cta { background: var(--accent); color: #0a0a0f; font-family: var(--font-body); font-weight: 600; font-size: 0.875rem; padding: 0.6rem 1.4rem; border-radius: 100px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; white-space: nowrap; }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; margin: 5px 0; transition: all 0.3s; }
+
+  /* SECTIONS */
+  section { padding: 7rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-tag { display: inline-block; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  h1 { font-family: var(--font-head); font-weight: 800; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.25rem; }
+  h1 em { font-style: normal; background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  h2 { font-family: var(--font-head); font-weight: 700; font-size: clamp(1.8rem, 3.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem; }
+  .section-sub { color: var(--muted); font-size: 1.1rem; max-width: 580px; line-height: 1.7; font-weight: 300; margin-bottom: 0; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 8rem; position: relative; overflow: hidden; }
+  .hero-glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,160,0.1) 0%, transparent 70%); top: -200px; right: -200px; pointer-events: none; }
+  .hero-glow2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,184,255,0.07) 0%, transparent 70%); bottom: -100px; left: -100px; pointer-events: none; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.25); color: var(--accent); font-size: 0.8rem; font-weight: 500; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; letter-spacing: 0.04em; text-transform: uppercase; }
+  .hero-tag::before { content: '●'; font-size: 0.5rem; }
+  .hero-sub { font-size: 1.2rem; color: var(--muted); max-width: 580px; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.7; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #0a0a0f; font-family: var(--font-body); font-weight: 600; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 100px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text); font-weight: 500; font-size: 1rem; text-decoration: none; padding: 0.9rem 1.5rem; border-radius: 100px; border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.2); background: var(--card-bg); }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+  /* FEATURES GRID */
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+  .feature-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; transition: border-color 0.3s; }
+  .feature-card:hover { border-color: rgba(0,229,160,0.3); }
+  .feature-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+  .feature-card h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .feature-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
+
+  /* CTA SECTION */
+  .cta-section { background: var(--bg2); text-align: center; }
+  .cta-box { background: linear-gradient(135deg, rgba(0,229,160,0.06) 0%, rgba(0,184,255,0.06) 100%); border: 1px solid rgba(0,229,160,0.2); border-radius: 24px; padding: 5rem 3rem; max-width: 760px; margin: 0 auto; }
+  .cta-box h2 { margin-bottom: 1rem; }
+  .cta-box p { color: var(--muted); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .btn-whatsapp { display: inline-flex; align-items: center; gap: 0.6rem; background: #25D366; color: white; font-family: var(--font-body); font-weight: 600; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 100px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
+  .btn-whatsapp:hover { opacity: 0.88; transform: translateY(-2px); }
+
+  /* BREADCRUMB */
+  .breadcrumb { padding: 6rem 2rem 0; }
+  .breadcrumb-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); }
+  .breadcrumb-inner a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb-inner a:hover { color: var(--accent); }
+  .breadcrumb-inner span { color: var(--accent); }
+
+  /* PROCESO */
+  .proceso-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 3rem; background: var(--border); }
+  .proceso-item { background: var(--bg3); padding: 2rem 1.5rem; text-align: center; }
+  .proceso-num { font-family: var(--font-head); font-size: 0.75rem; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  .proceso-item h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .proceso-item p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+
+  /* FOOTER */
+  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  footer .logo { font-family: var(--font-head); font-weight: 800; font-size: 1rem; color: var(--text); }
+  footer .logo span { color: var(--accent); }
+  footer p { color: var(--muted); font-size: 0.82rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.22s; } .delay-3 { animation-delay: 0.34s; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    section { padding: 5rem 1.25rem; }
+    .cta-box { padding: 3rem 1.5rem; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+
+</head>
+<body>
+
+<nav>
+  <a href="/index.html" class="nav-logo">PyMes<span>Sistemas</span></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="#">Sistemas</a>
+      <div class="dropdown-menu">
+        <a href="/gimnasios.html">🏋️ Gimnasios y Fitness <span class="dropdown-tag">Disponible</span></a>
+        <a href="/clinicas.html">🩺 Clínicas y Fisioterapia <span class="dropdown-tag">Disponible</span></a>
+        <a href="/odontologia.html">🦷 Odontología <span class="dropdown-tag">Disponible</span></a>
+        <a href="/restaurantes.html">🍽️ Restaurantes</a>
+        <a href="/comercios.html">🏪 Comercios y Stock</a>
+        <a href="/profesionales.html">💼 Estudios y Servicios</a>
+      </div>
+    </li>
+    <li><a href="/index.html#casos">Casos reales</a></li>
+    <li><a href="/index.html#proceso">Por qué elegirnos</a></li>
+  </ul>
+  <a href="https://wa.me/59897323916?text=Hola,%20quiero%20saber%20más%20sobre%20sus%20sistemas" class="nav-cta" target="_blank">Hablar con nosotros</a>
+  <button class="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+
+<div class="breadcrumb"><div class="breadcrumb-inner"><a href="/index.html">Inicio</a> › <span>Software para Restaurantes en Uruguay</span></div></div>
+<section class="hero" style="min-height:80vh">
+  <div class="hero-glow"></div><div class="hero-glow2"></div>
+  <div class="container">
+    <div class="hero-tag fade-up">Desarrollo a medida</div>
+    <h1 class="fade-up delay-1">🍽️ <em>Software a medida</em> para restaurantes</h1>
+    <p class="hero-sub fade-up delay-2">Gestioná mesas, pedidos, stock e ingresos desde un sistema diseñado para la realidad de tu restaurante o negocio gastronómico.</p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="https://wa.me/59897323916?text=Hola,%20quiero%20saber%20más%20sobre%20un%20sistema%20para%20mi%20restaurante" class="btn-whatsapp" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Coordiná una reunión</a>
+      <a href="#funciones" class="btn-secondary">Ver qué incluye →</a>
+    </div>
+  </div>
+</section>
+
+<section id="funciones" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-tag">¿Qué podemos desarrollar?</div>
+    <h2>Un sistema construido para tu operación</h2>
+    <p class="section-sub">Cada negocio es diferente. Por eso no usamos plantillas — desarrollamos exactamente lo que tu negocio necesita.</p>
+    <div class="features-grid"><div class="feature-card"><div class="feature-icon">🍽️</div><h3>Gestión de mesas</h3><p>Control de mesas disponibles, pedidos activos y estado en tiempo real.</p></div><div class="feature-card"><div class="feature-icon">📦</div><h3>Control de stock</h3><p>Inventario de ingredientes y productos con alertas de reposición.</p></div><div class="feature-card"><div class="feature-icon">💰</div><h3>Caja y facturación</h3><p>Registro de ventas, métodos de pago y cierre de caja diario.</p></div><div class="feature-card"><div class="feature-icon">📋</div><h3>Carta digital</h3><p>Creá y actualizá tu menú digital desde el sistema.</p></div><div class="feature-card"><div class="feature-icon">👥</div><h3>Gestión de personal</h3><p>Turnos, asistencia y control de tu equipo.</p></div><div class="feature-card"><div class="feature-icon">📊</div><h3>Reportes</h3><p>Ventas por día, semana o mes. Todo el rendimiento de tu negocio en números.</p></div></div>
+  </div>
+</section>
+
+<section style="background:var(--bg)">
+  <div class="container">
+    <div class="section-tag">Cómo trabajamos</div>
+    <h2>Del relevamiento al sistema funcionando</h2>
+    <div class="proceso-grid">
+      <div class="proceso-item"><div class="proceso-num">PASO 01</div><h3>Reunión inicial</h3><p>Entendemos tu negocio, tus procesos y qué problema querés resolver.</p></div>
+      <div class="proceso-item"><div class="proceso-num">PASO 02</div><h3>Diseño del sistema</h3><p>Definimos las funciones y te mostramos cómo va a quedar antes de desarrollar.</p></div>
+      <div class="proceso-item"><div class="proceso-num">PASO 03</div><h3>Desarrollo</h3><p>Construimos el sistema a medida de tu operación, con tus tiempos y necesidades.</p></div>
+      <div class="proceso-item"><div class="proceso-num">PASO 04</div><h3>Mantenimiento mensual</h3><p>Te acompañamos con soporte continuo y mejoras incluidas en la cuota mensual.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <div class="section-tag">Hablemos</div>
+      <h2>Contanos cómo funciona tu negocio</h2>
+      <p>Una reunión sin costo para entender qué necesitás y mostrarte cómo lo podemos digitalizar.</p>
+      <a href="https://wa.me/59897323916?text=Hola,%20quiero%20saber%20más%20sobre%20un%20sistema%20para%20mi%20restaurante" class="btn-whatsapp" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultanos por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">PyMes<span>Sistemas</span></div>
+  <p>pymessistemas.com · Desarrollo de software para PyMEs</p>
+  <p>© 2025 PyMes Sistemas · Uruguay</p>
+</footer>
+
+
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  if(hamburger) hamburger.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '70px';
+    navLinks.style.left = '0'; navLinks.style.right = '0';
+    navLinks.style.background = 'rgba(10,10,15,0.97)';
+    navLinks.style.padding = '1.5rem 2rem';
+    navLinks.style.borderBottom = '1px solid rgba(255,255,255,0.07)';
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity='1'; entry.target.style.transform='translateY(0)'; } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.feature-card, .proceso-item').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

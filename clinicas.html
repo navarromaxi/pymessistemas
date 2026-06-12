@@ -1,242 +1,156 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Software para Clínicas y Fisioterapia en Uruguay | PyMes Sistemas</title>
-<meta name="description" content="Sistema de gestión para clínicas de fisioterapia en Uruguay. Pacientes, agenda, historial clínico, pagos y reportes. Integrado con Google Calendar.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0a0a0f; --bg2: #111118; --bg3: #18181f;
-    --accent: #00e5a0; --accent2: #00b8ff;
-    --text: #f0f0f5; --muted: #8888a0;
-    --border: rgba(255,255,255,0.07);
-    --card-bg: rgba(255,255,255,0.04);
-    --radius: 16px;
-    --font-head: 'Syne', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-  }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
-
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-  .nav-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
-  .nav-logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--text); }
-  .nav-dropdown { position: relative; }
-  .nav-dropdown > a { display: flex; align-items: center; gap: 0.3rem; cursor: pointer; }
-  .nav-dropdown > a::after { content: '▾'; font-size: 0.7rem; }
-  .dropdown-menu { display: none; position: absolute; top: calc(100% + 1rem); left: 0; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; min-width: 240px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-  .nav-dropdown:hover .dropdown-menu { display: block; }
-  .dropdown-menu a { display: block; padding: 0.75rem 1.25rem; color: var(--muted); font-size: 0.875rem; text-decoration: none; transition: background 0.15s, color 0.15s; border-bottom: 1px solid var(--border); }
-  .dropdown-menu a:last-child { border-bottom: none; }
-  .dropdown-menu a:hover { background: var(--card-bg); color: var(--text); }
-  .dropdown-menu .dropdown-tag { font-size: 0.7rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-left: 0.5rem; }
-  .nav-cta { background: var(--accent); color: #0a0a0f; font-family: var(--font-body); font-weight: 600; font-size: 0.875rem; padding: 0.6rem 1.4rem; border-radius: 100px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; white-space: nowrap; }
-  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
-  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; margin: 5px 0; transition: all 0.3s; }
-
-  /* SECTIONS */
-  section { padding: 7rem 2rem; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  .section-tag { display: inline-block; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
-  h1 { font-family: var(--font-head); font-weight: 800; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.25rem; }
-  h1 em { font-style: normal; background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  h2 { font-family: var(--font-head); font-weight: 700; font-size: clamp(1.8rem, 3.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem; }
-  .section-sub { color: var(--muted); font-size: 1.1rem; max-width: 580px; line-height: 1.7; font-weight: 300; margin-bottom: 0; }
-
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 8rem; position: relative; overflow: hidden; }
-  .hero-glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,160,0.1) 0%, transparent 70%); top: -200px; right: -200px; pointer-events: none; }
-  .hero-glow2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,184,255,0.07) 0%, transparent 70%); bottom: -100px; left: -100px; pointer-events: none; }
-  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.25); color: var(--accent); font-size: 0.8rem; font-weight: 500; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; letter-spacing: 0.04em; text-transform: uppercase; }
-  .hero-tag::before { content: '●'; font-size: 0.5rem; }
-  .hero-sub { font-size: 1.2rem; color: var(--muted); max-width: 580px; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.7; }
-  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #0a0a0f; font-family: var(--font-body); font-weight: 600; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 100px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
-  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
-  .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text); font-weight: 500; font-size: 1rem; text-decoration: none; padding: 0.9rem 1.5rem; border-radius: 100px; border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
-  .btn-secondary:hover { border-color: rgba(255,255,255,0.2); background: var(--card-bg); }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-
-  /* FEATURES GRID */
-  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
-  .feature-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; transition: border-color 0.3s; }
-  .feature-card:hover { border-color: rgba(0,229,160,0.3); }
-  .feature-icon { font-size: 1.75rem; margin-bottom: 1rem; }
-  .feature-card h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
-  .feature-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
-
-  /* CTA SECTION */
-  .cta-section { background: var(--bg2); text-align: center; }
-  .cta-box { background: linear-gradient(135deg, rgba(0,229,160,0.06) 0%, rgba(0,184,255,0.06) 100%); border: 1px solid rgba(0,229,160,0.2); border-radius: 24px; padding: 5rem 3rem; max-width: 760px; margin: 0 auto; }
-  .cta-box h2 { margin-bottom: 1rem; }
-  .cta-box p { color: var(--muted); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-  .btn-whatsapp { display: inline-flex; align-items: center; gap: 0.6rem; background: #25D366; color: white; font-family: var(--font-body); font-weight: 600; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 100px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
-  .btn-whatsapp:hover { opacity: 0.88; transform: translateY(-2px); }
-
-  /* BREADCRUMB */
-  .breadcrumb { padding: 6rem 2rem 0; }
-  .breadcrumb-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); }
-  .breadcrumb-inner a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .breadcrumb-inner a:hover { color: var(--accent); }
-  .breadcrumb-inner span { color: var(--accent); }
-
-  /* PROCESO */
-  .proceso-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 3rem; background: var(--border); }
-  .proceso-item { background: var(--bg3); padding: 2rem 1.5rem; text-align: center; }
-  .proceso-num { font-family: var(--font-head); font-size: 0.75rem; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
-  .proceso-item h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .proceso-item p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
-
-  /* FOOTER */
-  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  footer .logo { font-family: var(--font-head); font-weight: 800; font-size: 1rem; color: var(--text); }
-  footer .logo span { color: var(--accent); }
-  footer p { color: var(--muted); font-size: 0.82rem; }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
-  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.22s; } .delay-3 { animation-delay: 0.34s; }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.25rem; }
-    .nav-links { display: none; }
-    .hamburger { display: block; }
-    section { padding: 5rem 1.25rem; }
-    .cta-box { padding: 3rem 1.5rem; }
-    footer { flex-direction: column; text-align: center; }
-  }
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software para Clínicas y Fisioterapia en Uruguay | PyMes Sistemas</title>
+  <meta name="description" content="Sistema de gestión para clínicas y centros de fisioterapia en Uruguay. Pacientes, agenda, historial clínico, pagos y reportes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<nav>
-  <a href="/index.html" class="nav-logo">PyMes<span>Sistemas</span></a>
-  <ul class="nav-links">
-    <li class="nav-dropdown">
-      <a href="#">Sistemas</a>
-      <div class="dropdown-menu">
-        <a href="/gimnasios.html">🏋️ Gimnasios y Fitness <span class="dropdown-tag">Disponible</span></a>
-        <a href="/clinicas.html">🩺 Clínicas y Fisioterapia <span class="dropdown-tag">Disponible</span></a>
-        <a href="/odontologia.html">🦷 Odontología <span class="dropdown-tag">Disponible</span></a>
-        <a href="/restaurantes.html">🍽️ Restaurantes</a>
-        <a href="/comercios.html">🏪 Comercios y Stock</a>
-        <a href="/profesionales.html">💼 Estudios y Servicios</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-shell">
+        <a class="logo" href="index.html">PyMes<span>Sistemas</span></a>
+        <ul class="nav-links">
+          <li class="nav-dropdown">
+            <button type="button">Sistemas</button>
+            <div class="dropdown-menu">
+              <a href="gimnasios.html"><span class="dropdown-title">Gimnasios y fitness</span><span class="dropdown-copy">Socios, pagos, clases y acceso.</span></a>
+              <a href="clinicas.html"><span class="dropdown-title">Clínicas y fisioterapia</span><span class="dropdown-copy">Agenda y seguimiento clínico.</span></a>
+              <a href="odontologia.html"><span class="dropdown-title">Odontología</span><span class="dropdown-copy">Odontograma y tratamientos.</span></a>
+              <a href="restaurantes.html"><span class="dropdown-title">Restaurantes</span><span class="dropdown-copy">Pedidos, stock y caja.</span></a>
+              <a href="comercios.html"><span class="dropdown-title">Comercios y stock</span><span class="dropdown-copy">Ventas e inventario.</span></a>
+              <a href="profesionales.html"><span class="dropdown-title">Servicios profesionales</span><span class="dropdown-copy">Clientes, tareas y facturación.</span></a>
+            </div>
+          </li>
+          <li><a href="index.html#casos">Casos reales</a></li>
+          <li><a href="index.html#proceso">Proceso</a></li>
+        </ul>
+        <a class="button" href="https://wa.me/59897323916?text=Hola,%20quiero%20ver%20el%20sistema%20para%20cl%C3%ADnicas%20y%20fisioterapia" target="_blank" rel="noreferrer">Solicitar demo</a>
+        <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" data-nav-toggle><span></span></button>
       </div>
-    </li>
-    <li><a href="/index.html#casos">Casos reales</a></li>
-    <li><a href="/index.html#proceso">Por qué elegirnos</a></li>
-  </ul>
-  <a href="https://wa.me/59897323916?text=Hola,%20quiero%20saber%20más%20sobre%20sus%20sistemas" class="nav-cta" target="_blank">Hablar con nosotros</a>
-  <button class="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
-</nav>
-
-
-<div class="breadcrumb"><div class="breadcrumb-inner"><a href="/index.html">Inicio</a> › <span>Software para Clínicas y Fisioterapia</span></div></div>
-<section class="hero" style="min-height:80vh">
-  <div class="hero-glow"></div><div class="hero-glow2"></div>
-  <div class="container">
-    <div class="hero-tag fade-up">Sistema disponible · Clientes activos</div>
-    <h1 class="fade-up delay-1">Gestión completa para tu <em>clínica de fisioterapia</em></h1>
-    <p class="hero-sub fade-up delay-2">Pacientes, agenda, historial clínico, rutinas y reportes en un solo sistema. Integrado con Google Calendar y adaptable a múltiples sucursales.</p>
-    <div class="hero-actions fade-up delay-3">
-      <a href="https://wa.me/59897323916?text=Hola,%20quiero%20saber%20más%20sobre%20el%20sistema%20para%20clínicas%20de%20fisioterapia" class="btn-whatsapp" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Solicitá una demo</a>
-      <a href="#funciones" class="btn-secondary">Ver funciones →</a>
-    </div>
-  </div>
-</section>
-
-<section id="funciones" style="background:var(--bg2)">
-  <div class="container">
-    <div class="section-tag">Funciones</div>
-    <h2>Todo lo que tu clínica necesita, digitalizado</h2>
-    <p class="section-sub">Probado en clínicas reales de Uruguay. Cada función diseñada para simplificar tu operación diaria.</p>
-    <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon">👤</div><h3>Gestión de pacientes</h3><p>Ficha completa de cada paciente, historial de sesiones y seguimiento del tratamiento.</p></div>
-      <div class="feature-card"><div class="feature-icon">📋</div><h3>Historial clínico</h3><p>Registrá cada sesión con notas, evolución y observaciones. Todo ordenado y accesible.</p></div>
-      <div class="feature-card"><div class="feature-icon">📅</div><h3>Agenda inteligente</h3><p>Agenda integrada con Google Calendar para coordinar turnos desde cualquier dispositivo.</p></div>
-      <div class="feature-card"><div class="feature-icon">💰</div><h3>Control de pagos</h3><p>Registrá cobros por sesión, planes y seguimiento de deudas pendientes.</p></div>
-      <div class="feature-card"><div class="feature-icon">📊</div><h3>Gastos y reportes</h3><p>Control de gastos y reportes detallados por sucursal o de forma general.</p></div>
-      <div class="feature-card"><div class="feature-icon">🏃</div><h3>Rutinas con videos</h3><p>Creá rutinas de ejercicios con links de YouTube adjuntos para que el paciente practique en casa.</p></div>
-      <div class="feature-card"><div class="feature-icon">🏢</div><h3>Múltiples sucursales</h3><p>Gestioná varias sedes con agendas independientes y reportes unificados o por sucursal.</p></div>
-      <div class="feature-card"><div class="feature-icon">🎯</div><h3>Lista de interesados</h3><p>Llevá el seguimiento de potenciales pacientes que consultaron pero aún no empezaron.</p></div>
-    </div>
-  </div>
-</section>
-
-<section style="background:var(--bg)">
-  <div class="container">
-    <div class="section-tag">Casos reales</div>
-    <h2>Clínicas que ya trabajan con este sistema</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2rem">
-      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:2rem">
-        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem">
-          <div style="width:52px;height:52px;border-radius:12px;background:var(--card-bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:800;color:var(--accent)">GR</div>
-          <div><div style="font-family:var(--font-head);font-weight:700">Clínica Grip</div><div style="color:var(--muted);font-size:0.82rem">Fisioterapia · Uruguay</div></div>
+      <div class="nav-panel" data-nav-panel>
+        <nav>
+          <a href="index.html">Inicio</a>
+          <a href="index.html#casos">Casos reales</a>
+          <a href="index.html#contacto">Contacto</a>
+        </nav>
+        <div class="mobile-group">
+          <p class="nav-panel-label">Otros sistemas</p>
+          <a href="gimnasios.html">Gimnasios y fitness</a>
+          <a href="odontologia.html">Odontología</a>
+          <a href="restaurantes.html">Restaurantes</a>
+          <a href="comercios.html">Comercios y stock</a>
+          <a href="profesionales.html">Servicios profesionales</a>
         </div>
-        <p style="color:var(--muted);font-style:italic;padding-left:1rem;border-left:2px solid rgba(0,229,160,0.4);line-height:1.65">"Llevamos el historial de cada paciente, coordinamos la agenda con Google Calendar y generamos reportes por sucursal. Todo en un solo lugar."</p>
       </div>
-      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:2rem">
-        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem">
-          <div style="width:52px;height:52px;border-radius:12px;background:var(--card-bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:800;color:var(--accent)">FC</div>
-          <div><div style="font-family:var(--font-head);font-weight:700">Fisioterapia Canelones</div><div style="color:var(--muted);font-size:0.82rem">Fisioterapia · Canelones</div></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="breadcrumb">
+      <div class="container">
+        <a href="index.html">Inicio</a>
+        <span>/</span>
+        <span class="current">Clínicas y fisioterapia</span>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy" data-animate>
+          <p class="section-tag">Sistema disponible</p>
+          <h1>Una gestión clínica más clara para pacientes, agenda y seguimiento profesional.</h1>
+          <p class="lead">Organizá pacientes, historial clínico, rutinas, pagos y reportes desde un sistema pensado para la dinámica real de una clínica o centro de fisioterapia.</p>
+          <div class="hero-actions">
+            <a class="button" href="https://wa.me/59897323916?text=Hola,%20quiero%20una%20demo%20del%20sistema%20para%20cl%C3%ADnicas%20y%20fisioterapia" target="_blank" rel="noreferrer">Quiero una demo</a>
+            <a class="button-secondary" href="#funciones">Ver funciones</a>
+          </div>
         </div>
-        <p style="color:var(--muted);font-style:italic;padding-left:1rem;border-left:2px solid rgba(0,229,160,0.4);line-height:1.65">"Asignamos rutinas con videos a cada paciente, vemos el historial completo y controlamos los pagos sin perder nada."</p>
+        <aside class="hero-panel" data-animate>
+          <h3>Ideal para resolver</h3>
+          <div class="mini-metrics">
+            <div class="mini-metric">
+              <div class="metric-number">01</div>
+              <div class="metric-text"><strong>Agenda descoordinada</strong><span>Turnos y organización clínica en un flujo más controlado.</span></div>
+            </div>
+            <div class="mini-metric">
+              <div class="metric-number">02</div>
+              <div class="metric-text"><strong>Historia dispersa</strong><span>Seguimiento por paciente, sesión y tratamiento sin perder contexto.</span></div>
+            </div>
+            <div class="mini-metric">
+              <div class="metric-number">03</div>
+              <div class="metric-text"><strong>Administración débil</strong><span>Pagos, gastos e indicadores en el mismo sistema.</span></div>
+            </div>
+          </div>
+        </aside>
       </div>
+    </section>
+
+    <section class="section alt" id="funciones">
+      <div class="container">
+        <p class="section-tag">Funciones</p>
+        <h2>Operación clínica y administrativa en un solo entorno</h2>
+        <p class="section-sub">Pensado para evitar dobles registros y mejorar el seguimiento de pacientes y del equipo.</p>
+        <div class="grid-features">
+          <article class="card" data-animate><h3>Pacientes</h3><p>Ficha completa, antecedentes, evolución y acceso rápido al historial.</p></article>
+          <article class="card" data-animate><h3>Historial clínico</h3><p>Registro ordenado por sesión con notas y seguimiento de tratamiento.</p></article>
+          <article class="card" data-animate><h3>Agenda</h3><p>Organización de turnos por profesional, sede o recurso.</p></article>
+          <article class="card" data-animate><h3>Rutinas</h3><p>Asignación de ejercicios y material de apoyo para el paciente.</p></article>
+          <article class="card" data-animate><h3>Pagos</h3><p>Control de cobros, pendientes y trazabilidad administrativa.</p></article>
+          <article class="card" data-animate><h3>Gastos y reportes</h3><p>Lectura más clara del funcionamiento general o por sucursal.</p></article>
+          <article class="card" data-animate><h3>Múltiples sedes</h3><p>Separación operativa con visión consolidada cuando hace falta.</p></article>
+          <article class="card" data-animate><h3>Seguimiento comercial</h3><p>Registro de interesados o pacientes aún no convertidos.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="section-tag">Casos reales</p>
+        <h2>Clínicas que ya trabajan con este tipo de sistema</h2>
+        <div class="grid-cases">
+          <article class="quote-card" data-animate>
+            <h3>Clínica Grip</h3>
+            <blockquote>Ordenó agenda, historial clínico y reportes por sucursal, reduciendo la dependencia de herramientas separadas.</blockquote>
+            <footer>Fisioterapia<span>Montevideo</span></footer>
+          </article>
+          <article class="quote-card" data-animate>
+            <h3>Fisioterapia Canelones</h3>
+            <blockquote>Concentró seguimiento de pacientes, rutinas y pagos en una única base de trabajo.</blockquote>
+            <footer>Fisioterapia<span>Canelones</span></footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="cta-box" data-animate>
+          <p class="section-tag">Próximo paso</p>
+          <h2>Si la información clínica y administrativa está repartida, el equipo trabaja con más fricción de la necesaria.</h2>
+          <p class="section-sub">Podemos mostrarte una demo enfocada en la agenda, el seguimiento de pacientes y la administración diaria.</p>
+          <div class="cta-actions">
+            <a class="button" href="https://wa.me/59897323916?text=Hola,%20quiero%20una%20demo%20del%20sistema%20para%20cl%C3%ADnicas%20y%20fisioterapia" target="_blank" rel="noreferrer">Pedir demo</a>
+            <a class="button-secondary" href="index.html#contacto">Volver al sitio principal</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="logo" href="index.html">PyMes<span>Sistemas</span></a>
+      <p>Software de gestión para PyMEs en Uruguay.</p>
+      <p>© 2026 PyMes Sistemas</p>
     </div>
-  </div>
-</section>
+  </footer>
 
-<section class="cta-section">
-  <div class="container">
-    <div class="cta-box">
-      <div class="section-tag">Empezá hoy</div>
-      <h2>¿Seguís con la agenda en papel?</h2>
-      <p>Te mostramos cómo el sistema puede simplificar tu clínica desde el primer día.</p>
-      <a href="https://wa.me/59897323916?text=Hola,%20quiero%20una%20demo%20del%20sistema%20para%20clínicas%20de%20fisioterapia" class="btn-whatsapp" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultanos por WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="logo">PyMes<span>Sistemas</span></div>
-  <p>pymessistemas.com · Desarrollo de software para PyMEs</p>
-  <p>© 2025 PyMes Sistemas · Uruguay</p>
-</footer>
-
-
-<script>
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-  if(hamburger) hamburger.addEventListener('click', () => {
-    const open = navLinks.style.display === 'flex';
-    navLinks.style.display = open ? 'none' : 'flex';
-    navLinks.style.flexDirection = 'column';
-    navLinks.style.position = 'absolute';
-    navLinks.style.top = '70px';
-    navLinks.style.left = '0'; navLinks.style.right = '0';
-    navLinks.style.background = 'rgba(10,10,15,0.97)';
-    navLinks.style.padding = '1.5rem 2rem';
-    navLinks.style.borderBottom = '1px solid rgba(255,255,255,0.07)';
-  });
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity='1'; entry.target.style.transform='translateY(0)'; } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.feature-card, .proceso-item').forEach(el => {
-    el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
-</script>
-
+  <script src="site.js"></script>
 </body>
 </html>

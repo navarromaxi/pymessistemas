@@ -22,6 +22,8 @@
 .routine-trust { display: flex; flex-wrap: wrap; gap: .55rem .8rem; margin-top: 1.5rem; color: #d6e7dd; font-size: .92rem; }
 .routine-trust span { padding: .38rem .7rem; border: 1px solid rgba(74, 222, 128, .19); border-radius: 999px; background: rgba(74, 222, 128, .07); }
 .routine-note { margin-top: 1rem; color: var(--muted); font-size: .88rem; }
+.routine-how-link { display: inline-flex; margin-top: 1rem; color: var(--muted); font-size: .9rem; text-decoration: none; }
+.routine-how-link:hover { color: var(--text); text-decoration: underline; }
 
 .phone-stage { position: relative; display: grid; justify-items: center; min-height: 545px; padding: 1rem; }
 .phone-glow { position: absolute; inset: 15% 5%; background: radial-gradient(ellipse, rgba(56, 189, 248, .28), transparent 65%); filter: blur(14px); }
@@ -66,6 +68,7 @@
 .routine-audience > p { align-self: end; color: #d1d9ea; font-size: 1.1rem; }
 .routine-faq { display: grid; gap: 1rem; max-width: 850px; margin: 2.5rem auto 0; text-align: left; }
 .routine-final { background: linear-gradient(145deg, rgba(74,222,128,.13), rgba(56,189,248,.12)); }
+.routine-final .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .85rem; margin-top: 1.65rem; }
 
 @media (max-width: 900px) {
   .routine-nav, .routine-header-cta { display: none; }

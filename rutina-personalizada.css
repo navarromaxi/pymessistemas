@@ -10,7 +10,7 @@
 .routine-nav a:hover { color: var(--text); }
 .routine-header-cta { min-height: 2.75rem; padding: .65rem 1.1rem; }
 
-.routine-hero { min-height: 760px; padding: 10.5rem 0 5rem; overflow: hidden; }
+.routine-hero { min-height: 700px; padding: 10.5rem 0 3.5rem; overflow: hidden; }
 .routine-hero-grid { display: grid; grid-template-columns: minmax(0, 1.06fr) minmax(340px, .94fr); gap: 3rem; align-items: center; }
 .routine-copy h1 { max-width: 11ch; font-size: clamp(3rem, 6.5vw, 5.65rem); }
 .routine-copy h1 strong { color: transparent; background: linear-gradient(100deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; background-clip: text; }

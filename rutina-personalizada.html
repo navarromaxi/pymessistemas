@@ -128,16 +128,15 @@
         <div>
           <p class="section-tag">Autogestión</p>
           <h2>Gestioná tu reunión con el profesor.</h2>
-          <p class="section-sub">Ingresá tu cédula para consultar tu próxima charla, cancelarla o elegir un horario nuevo. No necesitás escribirnos por correo.</p>
-          <div class="appointment-points"><span>1. Ingresá tu cédula</span><span>2. Revisá tu horario</span><span>3. Cambialo si lo necesitás</span></div>
+          <p class="section-sub">Consultá, cancelá o reprogramá tu charla en un espacio pensado solamente para tu agenda.</p>
+          <div class="appointment-points"><span>1. Ingresá tu cédula</span><span>2. Revisá tu reunión</span><span>3. Elegí otro día si lo necesitás</span></div>
         </div>
-        <div class="appointment-panel" data-appointment-manager>
-          <form class="appointment-form" data-appointment-form>
+        <div class="appointment-panel">
+          <form class="appointment-form" action="gestionar-reunion.html" method="get">
             <label for="appointment-cedula">Tu cédula</label>
-            <div class="appointment-input-row"><input id="appointment-cedula" name="cedula" type="text" inputmode="numeric" autocomplete="off" required placeholder="Sin puntos ni guiones"><button class="button" type="submit" data-appointment-submit>Ver mi reunión</button></div>
+            <div class="appointment-input-row"><input id="appointment-cedula" name="cedula" type="text" inputmode="numeric" autocomplete="off" required placeholder="Sin puntos ni guiones"><button class="button" type="submit">Gestionar mi reunión</button></div>
           </form>
-          <p class="appointment-status" data-appointment-status aria-live="polite">Usamos tu cédula solo para encontrar tu reunión y horarios disponibles.</p>
-          <div class="appointment-results" data-appointment-results hidden></div>
+          <p class="appointment-status">Vas a ingresar a tu agenda personal. Usamos tu cédula solo para identificar tus reuniones.</p>
         </div>
       </div>
     </section>
@@ -183,6 +182,5 @@
 
   <footer class="site-footer"><div class="container"><p>Rutinas personalizadas con acompañamiento profesional.</p><p>Desarrollado por <a href="https://www.pymessistemas.com/" target="_blank" rel="noreferrer">PyMes Sistemas</a></p><p>© 2026</p></div></footer>
   <script src="site.js"></script>
-  <script src="rutina-reuniones.js"></script>
 </body>
 </html>

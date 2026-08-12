@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestionar mi reunión | Rutina Online</title>
+  <meta name="description" content="Consultá o reprogramá tu reunión de rutina personalizada.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="gestionar-reunion.css">
+</head>
+<body class="meeting-page">
+  <main class="meeting-shell">
+    <header class="meeting-header">
+      <a class="logo" href="rutina-personalizada.html" aria-label="Volver a Rutina Online">Rutina<span>Online</span></a>
+      <a class="meeting-back" href="rutina-personalizada.html">← Volver al sitio</a>
+    </header>
+    <section class="meeting-hero">
+      <div class="meeting-intro"><p class="section-tag">Tu espacio de seguimiento</p><h1>Tu reunión, a tu manera.</h1><p>Consultá tu charla con el profesor o elegí un horario nuevo de forma simple.</p><div class="meeting-steps"><span>1 · Identificate</span><span>2 · Elegí un día</span><span>3 · Confirmá tu horario</span></div></div>
+      <div class="meeting-card">
+        <div class="meeting-card-title"><div><p class="eyebrow">Gestión de reunión</p><h2>Hola</h2></div><span class="meeting-icon">⌁</span></div>
+        <form class="meeting-form" data-meeting-form>
+          <label for="meeting-cedula">Tu cédula</label>
+          <div class="meeting-input-row"><input id="meeting-cedula" name="cedula" inputmode="numeric" autocomplete="off" required placeholder="Sin puntos ni guiones"><button type="submit" data-meeting-submit>Continuar</button></div>
+        </form>
+        <p class="meeting-status" data-meeting-status aria-live="polite">Ingresá tu cédula para ver tu reunión y los días disponibles.</p>
+        <div data-meeting-results hidden></div>
+      </div>
+    </section>
+  </main>
+  <script src="gestionar-reunion.js"></script>
+</body>
+</html>

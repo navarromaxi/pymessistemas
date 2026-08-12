@@ -26,6 +26,7 @@
         <nav class="routine-nav" aria-label="Navegación principal">
           <a href="#como-funciona">Cómo funciona</a>
           <a href="#incluye">Qué incluye</a>
+          <a href="#gestionar-reunion">Mi reunión</a>
           <a href="#preguntas">Preguntas</a>
         </nav>
         <a class="button routine-header-cta" href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero mi rutina</a>
@@ -35,6 +36,7 @@
         <nav>
           <a href="#como-funciona">Cómo funciona</a>
           <a href="#incluye">Qué incluye</a>
+          <a href="#gestionar-reunion">Gestionar mi reunión</a>
           <a href="#preguntas">Preguntas frecuentes</a>
           <a href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero mi rutina</a>
           <a href="https://wa.me/59897323916?text=Hola%2C%20tengo%20una%20consulta%20sobre%20la%20rutina%20personalizada%20online" target="_blank" rel="noreferrer">Tengo una consulta</a>
@@ -121,6 +123,25 @@
       </div>
     </section>
 
+    <section class="section appointment-section" id="gestionar-reunion">
+      <div class="container appointment-layout">
+        <div>
+          <p class="section-tag">Autogestión</p>
+          <h2>Gestioná tu reunión con el profesor.</h2>
+          <p class="section-sub">Ingresá tu cédula para consultar tu próxima charla, cancelarla o elegir un horario nuevo. No necesitás escribirnos por correo.</p>
+          <div class="appointment-points"><span>1. Ingresá tu cédula</span><span>2. Revisá tu horario</span><span>3. Cambialo si lo necesitás</span></div>
+        </div>
+        <div class="appointment-panel" data-appointment-manager>
+          <form class="appointment-form" data-appointment-form>
+            <label for="appointment-cedula">Tu cédula</label>
+            <div class="appointment-input-row"><input id="appointment-cedula" name="cedula" type="text" inputmode="numeric" autocomplete="off" required placeholder="Sin puntos ni guiones"><button class="button" type="submit" data-appointment-submit>Ver mi reunión</button></div>
+          </form>
+          <p class="appointment-status" data-appointment-status aria-live="polite">Usamos tu cédula solo para encontrar tu reunión y horarios disponibles.</p>
+          <div class="appointment-results" data-appointment-results hidden></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container routine-audience" data-animate>
         <div>
@@ -162,5 +183,6 @@
 
   <footer class="site-footer"><div class="container"><p>Rutinas personalizadas con acompañamiento profesional.</p><p>Desarrollado por <a href="https://www.pymessistemas.com/" target="_blank" rel="noreferrer">PyMes Sistemas</a></p><p>© 2026</p></div></footer>
   <script src="site.js"></script>
+  <script src="rutina-reuniones.js"></script>
 </body>
 </html>

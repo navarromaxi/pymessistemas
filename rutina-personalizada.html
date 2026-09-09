@@ -17,6 +17,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="rutina-personalizada.css">
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1733659331050541');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1733659331050541&ev=PageView&noscript=1" alt=""></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body class="routine-page">
   <header class="site-header">
@@ -29,7 +37,7 @@
           <a href="#gestionar-reunion">Mi reunión</a>
           <a href="#preguntas">Preguntas</a>
         </nav>
-        <a class="button routine-header-cta" href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero mi rutina</a>
+        <a class="button routine-header-cta" data-routine-signup href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero mi rutina</a>
         <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" data-nav-toggle><span></span></button>
       </div>
       <div class="nav-panel" data-nav-panel>
@@ -38,7 +46,7 @@
           <a href="#incluye">Qué incluye</a>
           <a href="#gestionar-reunion">Gestionar mi reunión</a>
           <a href="#preguntas">Preguntas frecuentes</a>
-          <a href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero mi rutina</a>
+          <a data-routine-signup href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero mi rutina</a>
           <a href="https://wa.me/59897323916?text=Hola%2C%20tengo%20una%20consulta%20sobre%20la%20rutina%20personalizada%20online" target="_blank" rel="noreferrer">Tengo una consulta</a>
         </nav>
       </div>
@@ -60,7 +68,7 @@
             <span>✓ Control mensual cuando lo necesites</span>
           </div>
           <div class="hero-actions">
-            <a class="button" href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero mi rutina</a>
+            <a class="button" data-routine-signup href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero mi rutina</a>
             <a class="button-secondary" href="https://wa.me/59897323916?text=Hola%2C%20tengo%20una%20consulta%20sobre%20la%20rutina%20personalizada%20online" target="_blank" rel="noreferrer">Tengo una consulta</a>
           </div>
           <a class="routine-how-link" href="#como-funciona">Ver cómo funciona</a>
@@ -172,7 +180,7 @@
           <h2>Dejá de adivinar qué hacer cuando entrenás.</h2>
           <p class="section-sub">Empezá tu inscripción, completá tus datos y coordinamos la charla inicial. Si tenés dudas antes de avanzar, escribinos directamente.</p>
           <div class="cta-actions">
-            <a class="button" href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero empezar mi rutina</a>
+            <a class="button" data-routine-signup href="https://www.gymsistemas.com/entrenamiento/entrenamiento_online">Quiero empezar mi rutina</a>
             <a class="button-secondary" href="https://wa.me/59897323916?text=Hola%2C%20tengo%20una%20consulta%20sobre%20la%20rutina%20personalizada%20online" target="_blank" rel="noreferrer">Tengo una consulta</a>
           </div>
         </div>
@@ -182,5 +190,12 @@
 
   <footer class="site-footer"><div class="container"><p>Rutinas personalizadas con acompañamiento profesional.</p><p>Desarrollado por <a href="https://www.pymessistemas.com/" target="_blank" rel="noreferrer">PyMes Sistemas</a></p><p>© 2026</p></div></footer>
   <script src="site.js"></script>
+  <script>
+    document.querySelectorAll('[data-routine-signup]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (window.fbq) fbq('track', 'InitiateCheckout', { currency: 'UYU', value: 549 });
+      });
+    });
+  </script>
 </body>
 </html>

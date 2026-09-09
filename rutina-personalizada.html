@@ -193,7 +193,7 @@
   <script>
     document.querySelectorAll('[data-routine-signup]').forEach(function (button) {
       button.addEventListener('click', function () {
-        if (window.fbq) fbq('track', 'InitiateCheckout', { currency: 'UYU', value: 549 });
+        if (window.fbq) fbq('trackCustom', 'StartRegistration', { currency: 'UYU', value: 549 });
       });
     });
   </script>
